@@ -6,9 +6,13 @@
 
 
 {% block content %}
-    <form action="">
+    <form action="/" method='POST'>
+        {% csrf_token %}
+        {% if has_error %}
+            <p> This form is invalid! <br> Please enter a valid username</p>
+        {% endif %}
         <label for="username">Your Name</label>
         <input id = "username" name="username" type="text">
-        <button>Send</button>
+        <button type="submit">Send</button>
     </form>
-{% endblock content %}
+{% endblock content %} 
