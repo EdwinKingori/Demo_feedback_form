@@ -1,9 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     User's Review
 {% endblock title %}
 
+
+{% block csss %}
+    <link rel="stylesheet" href="{% static "reviews/styles.css" %}">
+{% endblock csss %}
 
 {% block content %}
     <form action="/" method='POST'>
