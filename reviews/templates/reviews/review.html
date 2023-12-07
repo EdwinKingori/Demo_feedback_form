@@ -6,9 +6,9 @@
 {% endblock title %}
 
 
-{% block csss %}
+{% block css %}
     <link rel="stylesheet" href="{% static "reviews/styles.css" %}">
-{% endblock csss %}
+{% endblock css %}
 
 {% block content %}
     <form action="/" method='POST'>
@@ -18,12 +18,21 @@
         <label for="username">Your Name</label>
         <input id = "username" name="username" type="text"> 
     {% endcomment %}
-        <div class = "form_control {% if form.user_name.errors %} errors{% endif %}"> 
+        <div class="form_control {% if form.user_name.errors %}errors{% endif %}"> 
             {{ form.user_name.label_tag }}
             {{ form.user_name }}
             {{ form.user_name.errors }}
         </div>
-        
+        <div class="form_control {% if form.review_text.errors %}errors{% endif %}"> 
+            {{ form.review_text.label_tag }}
+            {{ form.review_text }}
+            {{ form.review_text.errors }}
+        </div>
+        <div class="form_control {% if form.rating.errors %}errors{% endif %}"> 
+            {{ form.rating.label_tag }}
+            {{ form.rating }}
+            {{ form.rating.errors }}
+        </div>
         <button type="submit">Send</button>
     </form>
 {% endblock content %} 
