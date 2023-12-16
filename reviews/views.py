@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormView
 
 from . forms import ReviewForm
 from . models import Review
@@ -12,24 +13,26 @@ from . models import Review
 # replacing the function view with the class-based view
 
 
-class ReviewView(View):
-    def get(self, request):
-        form = ReviewForm()
+class ReviewView(FormView):
+    form_class = ReviewForm
+    template_name = "reviews/review.html"
+    success_url = "/thank_you"
 
-        return render(request, 'reviews/review.html', {
-            "form": form
-        })
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
-    def post(self, request):
-        form = ReviewForm(request.POST)
 
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/thank_you')
+# Replacing the get method
+    # def get(self, request):
+    #     form = ReviewForm()
 
-        return render(request, 'reviews/review.html', {
-            "form": form
-        })
+    #     return render(request, 'reviews/review.html', {
+    #         "form": form
+    #     })
+
+    #
+
 # Replaced function view with the class_based view above.
 # def review(request):
 #     # Basic or manual form validation process.
