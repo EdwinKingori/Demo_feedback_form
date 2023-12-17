@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Create a Profile
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "profiles/styles.css" %}">
+{% endblock css %}
+
+{% block content %}
+    <form action="profiles" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image">
+        <button>Upload!</button>
+    </form>
+{% endblock content %}
