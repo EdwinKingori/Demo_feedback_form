@@ -88,6 +88,14 @@ class SingleReviewView(DetailView):
     template_name = 'reviews/single_review.html'
     model = Review
 
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        loaded_review = self.object
+        request = self.request
+        favorite_id = request.session.get("favorite_review")
+        context["is_favorite"] = favorite_id == str(loaded_review.id)
+        return context
+
 
 # Replacing with the DetailView
     # def get_context_data(self, **kwargs: Any):
@@ -100,7 +108,5 @@ class SingleReviewView(DetailView):
 class AddFavoriteView(View):
     def post(self, request):
         review_id = request.POST["review_id"]
-        fav_review = Review.objects.get(pk=review_id)
-        # storing the review gotten above in the sessioin and django stroes it automatically in the database
-        request.session["favorite_review"] = fav_review
+        request.session["favorite_review"] = review_id
         return HttpResponseRedirect("/reviews/" + review_id)
